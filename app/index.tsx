@@ -1,8 +1,15 @@
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
+import { useGetProducts } from "../hooks/useGetProducts";
 
 export default function FirstScreen() {
+  const { data, isLoading } = useGetProducts();
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+
   return (
     <View
       style={{
@@ -13,6 +20,9 @@ export default function FirstScreen() {
       }}
     >
       <Text>{"First Screen"}</Text>
+      {data?.map((item) => (
+        <Text key={item.id}>{item.title}</Text>
+      ))}
       <Link href={"/second"}>
         <Text style={{ fontSize: 20, letterSpacing: 5, fontWeight: "bold" }}>
           {"Navigate"}

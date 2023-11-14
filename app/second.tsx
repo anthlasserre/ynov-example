@@ -1,8 +1,10 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
+import { useGetProductById } from "../hooks/useGetProductById";
 
 export default function SecondScreen() {
+  const { data } = useGetProductById(1);
   return (
     <View
       style={{
@@ -13,6 +15,7 @@ export default function SecondScreen() {
       }}
     >
       <Text>{"Second Screen"}</Text>
+      <Text>{data?.title}</Text>
       <Link href={"/"}>
         <Text style={{ fontSize: 20, letterSpacing: 5, fontWeight: "bold" }}>
           {"Go Back"}
